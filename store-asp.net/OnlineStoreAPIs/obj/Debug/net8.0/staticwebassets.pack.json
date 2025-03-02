@@ -1,0 +1,73 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\01be11eb-fe0e-43be-83d3-84f2b94c75cb.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\01be11eb-fe0e-43be-83d3-84f2b94c75cb.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\05f8bb42-7ece-465e-a89e-4cea65ae1742.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\05f8bb42-7ece-465e-a89e-4cea65ae1742.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\08755053-d4ce-435d-98b9-1127446d61b2.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\08755053-d4ce-435d-98b9-1127446d61b2.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\0da52a96-35e7-49bc-83d3-e09f4d5fe5fa.png",
+      "PackagePath": "staticwebassets\\ProductsImages\\0da52a96-35e7-49bc-83d3-e09f4d5fe5fa.png"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\2ad16955-63f9-4cc3-ba07-d428ebfeefb3.jpeg",
+      "PackagePath": "staticwebassets\\ProductsImages\\2ad16955-63f9-4cc3-ba07-d428ebfeefb3.jpeg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\43573b54-bf4b-42d8-8af0-96df60136e45.png",
+      "PackagePath": "staticwebassets\\ProductsImages\\43573b54-bf4b-42d8-8af0-96df60136e45.png"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\699a2fb5-2c24-4d6d-85a1-6ca92b3f51b6.jpeg",
+      "PackagePath": "staticwebassets\\ProductsImages\\699a2fb5-2c24-4d6d-85a1-6ca92b3f51b6.jpeg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\7a4746bc-d815-41f7-8505-0721d1d43f57.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\7a4746bc-d815-41f7-8505-0721d1d43f57.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\a4998e5a-feb1-48ac-810c-d17c763770fa.png",
+      "PackagePath": "staticwebassets\\ProductsImages\\a4998e5a-feb1-48ac-810c-d17c763770fa.png"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\eb743192-bf37-4319-8952-86d15d4eeba3.jpeg",
+      "PackagePath": "staticwebassets\\ProductsImages\\eb743192-bf37-4319-8952-86d15d4eeba3.jpeg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\f8090cd7-65ee-46bb-87d5-828e8e9cb605.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\f8090cd7-65ee-46bb-87d5-828e8e9cb605.jpg"
+    },
+    {
+      "Id": "E:\\WORK\\OnlineStore\\OnlineStoreAPIs\\wwwroot\\ProductsImages\\fb0d9bc9-d19e-451a-8cc3-f61a9035a160.jpg",
+      "PackagePath": "staticwebassets\\ProductsImages\\fb0d9bc9-d19e-451a-8cc3-f61a9035a160.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.OnlineStoreAPIs.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.OnlineStoreAPIs.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.OnlineStoreAPIs.props",
+      "PackagePath": "build\\OnlineStoreAPIs.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.OnlineStoreAPIs.props",
+      "PackagePath": "buildMultiTargeting\\OnlineStoreAPIs.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.OnlineStoreAPIs.props",
+      "PackagePath": "buildTransitive\\OnlineStoreAPIs.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

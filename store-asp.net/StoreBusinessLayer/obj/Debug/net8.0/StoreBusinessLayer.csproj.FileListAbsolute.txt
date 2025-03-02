@@ -1,0 +1,48 @@
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\appsettings.Development.json
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.deps.json
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.dll
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.pdb
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.dll
+E:\WORK\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.pdb
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.AssemblyReference.cache
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfoInputs.cache
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfo.cs
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.CoreCompileInputs.cache
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBus.5752CC35.Up2Date
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.dll
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\refint\StoreBusinessLayer.dll
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.pdb
+E:\WORK\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\ref\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.deps.json
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.pdb
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.dll
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.pdb
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.AssemblyReference.cache
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfoInputs.cache
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfo.cs
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBus.5752CC35.Up2Date
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\refint\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.pdb
+C:\Users\Elalamia\Desktop\OnlineStore\StoreBusinessLayer\obj\Debug\net8.0\ref\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.deps.json
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\StoreBusinessLayer.pdb
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Debug\net8.0\StoreDataAccessLayer.pdb
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.AssemblyReference.cache
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfoInputs.cache
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.AssemblyInfo.cs
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBus.5752CC35.Up2Date
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\refint\StoreBusinessLayer.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\StoreBusinessLayer.pdb
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\obj\Debug\net8.0\ref\StoreBusinessLayer.dll

@@ -1,0 +1,20 @@
+{
+  "Version": 1,
+  "Hash": "bQoZbgjFZih0GHEuzolcP8cgkZ+uLcDwjqGznRy3yJM=",
+  "Source": "OnlineStoreAPIs",
+  "BasePath": "_content/OnlineStoreAPIs",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "OnlineStoreAPIs\\wwwroot",
+      "Source": "OnlineStoreAPIs",
+      "ContentRoot": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\wwwroot\\",
+      "BasePath": "_content/OnlineStoreAPIs",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [],
+  "Endpoints": []
+}
