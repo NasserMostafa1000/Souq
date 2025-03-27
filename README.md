@@ -7,7 +7,7 @@ Souq-Elbalad is a **single-store e-commerce platform** designed for store owners
 ## 🚀 Project Overview
 
 - **Frontend**: Built using **React** for a responsive and dynamic user experience.
-- **Backend**: Powered by **ASP.NET Core REST APIs** to handle data management and communication.
+- **Backend**: Powered by **ASP.NET Core REST APIs with ef-core** to handle data management and communication.
 - **Admin Panel**: Provides an interface for store owners and managers to manage the store and products.
 
 ---
