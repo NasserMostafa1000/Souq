@@ -44,7 +44,7 @@ export default function AddressSelector({
 
   return (
     <>
-      <h4>العنوان المختار</h4>
+      <h4 style={{ color: "black" }}>العنوان المختار</h4>
 
       {Object.keys(addresses).length > 0 ? (
         <select
@@ -69,7 +69,7 @@ export default function AddressSelector({
         <a
           href="#"
           className="add-address-link"
-          style={{ color: "white" }}
+          style={{ color: "blue" }}
           onClick={(e) => {
             e.preventDefault();
             setShowAddAddressModal(true);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FiTrash2 } from "react-icons/fi";
-import API_BASE_URL from "../Constant.js";
+import API_BASE_URL, { ServerPath } from "../Constant.js";
 import "../../Styles/Cart.css";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet"; // استيراد Helmet
@@ -152,7 +152,7 @@ export default function Cart() {
             {cartItems.map((item, index) => (
               <div className="cart-item" key={index}>
                 <img
-                  src={item.image}
+                  src={`${ServerPath + item.image}`}
                   alt={item.productName}
                   className="cart-item-image"
                 />

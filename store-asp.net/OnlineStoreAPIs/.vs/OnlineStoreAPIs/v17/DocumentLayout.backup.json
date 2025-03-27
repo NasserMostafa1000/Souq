@@ -1,17 +1,35 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\",
+  "WorkspaceRootPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\online store\\store-asp.net\\onlinestoreapis\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\onlinestoreapis\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1057FC58-AEE3-40B8-8115-DB33DF9E6B32}|..\\StoreBusinessLayer\\StoreBusinessLayer.csproj|c:\\users\\elalamia\\desktop\\online store\\store-asp.net\\storebusinesslayer\\products\\productsbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1057FC58-AEE3-40B8-8115-DB33DF9E6B32}|..\\StoreBusinessLayer\\StoreBusinessLayer.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\storebusinesslayer\\orders\\ordersbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\online store\\store-asp.net\\onlinestoreapis\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{B79279B1-8F17-41E8-B078-97CEFCB3DE77}|..\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\storedataaccesslayer\\entities\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\onlinestoreapis\\hubs\\orderhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:hubs\\orderhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\onlinestoreapis\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1057FC58-AEE3-40B8-8115-DB33DF9E6B32}|..\\StoreBusinessLayer\\StoreBusinessLayer.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\storebusinesslayer\\users\\usersbl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\onlinestoreapis\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|c:\\users\\elalamia\\desktop\\souq\\store-asp.net\\onlinestoreapis\\controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{80373FDE-A381-4E7E-A74C-8AC3D612F9AF}|OnlineStoreAPIs.csproj|solutionrelative:controllers\\clientscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,8 +39,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAABUAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T00:44:47.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrdersBL.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\Orders\\OrdersBL.cs",
+              "RelativeDocumentMoniker": "..\\StoreBusinessLayer\\Orders\\OrdersBL.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\Orders\\OrdersBL.cs",
+              "RelativeToolTip": "..\\StoreBusinessLayer\\Orders\\OrdersBL.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T00:33:21.542Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
@@ -45,41 +89,78 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UsersBL.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\Users\\UsersBL.cs",
+              "RelativeDocumentMoniker": "..\\StoreBusinessLayer\\Users\\UsersBL.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\Users\\UsersBL.cs",
+              "RelativeToolTip": "..\\StoreBusinessLayer\\Users\\UsersBL.cs",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAAAPUAAAB8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T03:07:09.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "Users.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\Entities\\Users.cs",
+              "RelativeDocumentMoniker": "..\\StoreDataAccessLayer\\Entities\\Users.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\Entities\\Users.cs",
+              "RelativeToolTip": "..\\StoreDataAccessLayer\\Entities\\Users.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAAAsAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T02:04:02.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OrderHub.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Hubs\\OrderHub.cs",
+              "RelativeDocumentMoniker": "Hubs\\OrderHub.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Hubs\\OrderHub.cs",
+              "RelativeToolTip": "Hubs\\OrderHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-24T01:52:31.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ClientsController.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Controllers\\ClientsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ClientsController.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Controllers\\ClientsController.cs",
+              "RelativeToolTip": "Controllers\\ClientsController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAewEwAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T23:12:04.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\Properties\\launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Properties\\launchSettings.json",
               "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAtwBAAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-02-22T03:51:20.294Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-22T20:10:22.048Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductsBL.cs",
-              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\Products\\ProductsBL.cs",
-              "RelativeDocumentMoniker": "..\\StoreBusinessLayer\\Products\\ProductsBL.cs",
-              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\Products\\ProductsBL.cs",
-              "RelativeToolTip": "..\\StoreBusinessLayer\\Products\\ProductsBL.cs",
-              "ViewState": "AgIAAKQAAAAAAAAAAAAuwMQAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T03:13:17.359Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAwEgAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-20T07:16:07.39Z",
+              "WhenOpened": "2025-03-22T19:05:29.054Z",
               "EditorCaption": ""
             }
           ]

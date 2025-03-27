@@ -16,7 +16,7 @@ namespace StoreBusinessLayer.NotificationServices
                 string appPassword = "tabr lqzr mavn omvc"; // كلمة مرور التطبيق
                 string toAddress = EmailToSend; // البريد الإلكتروني للمستل
                 string subject = Subject;
-                string fromName = "سوق البلد";
+                string fromName = "[سوق البلد]";
                 string body = Body;
 
                 SmtpClient smtp = new SmtpClient

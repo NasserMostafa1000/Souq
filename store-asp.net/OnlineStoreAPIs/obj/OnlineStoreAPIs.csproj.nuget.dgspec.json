@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj": {}
+    "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj": {
+    "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj",
+        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj",
         "projectName": "OnlineStoreAPIs",
-        "projectPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj",
+        "projectPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\OnlineStoreAPIs.csproj",
         "packagesPath": "C:\\Users\\Elalamia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\OnlineStoreAPIs\\obj\\",
+        "outputPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\OnlineStoreAPIs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj": {
-                "projectPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj"
+              "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj": {
+                "projectPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj"
               }
             }
           }
@@ -100,14 +100,14 @@
         }
       }
     },
-    "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj": {
+    "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj",
         "projectName": "StoreBusinessLayer",
-        "projectPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj",
+        "projectPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\StoreBusinessLayer.csproj",
         "packagesPath": "C:\\Users\\Elalamia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreBusinessLayer\\obj\\",
+        "outputPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreBusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -128,8 +128,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj": {
-                "projectPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj"
+              "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj": {
+                "projectPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj"
               }
             }
           }
@@ -153,6 +153,10 @@
             "Google.Apis.Auth": {
               "target": "Package",
               "version": "[1.69.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Core": {
+              "target": "Package",
+              "version": "[1.2.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -183,14 +187,14 @@
         }
       }
     },
-    "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj": {
+    "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj",
+        "projectUniqueName": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj",
         "projectName": "StoreDataAccessLayer",
-        "projectPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj",
+        "projectPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\StoreDataAccessLayer.csproj",
         "packagesPath": "C:\\Users\\Elalamia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Elalamia\\Desktop\\online store\\store-asp.net\\StoreDataAccessLayer\\obj\\",
+        "outputPath": "C:\\Users\\Elalamia\\Desktop\\souq\\store-asp.net\\StoreDataAccessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

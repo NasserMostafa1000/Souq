@@ -1,3 +1,53 @@
+import API_BASE_URL, { ServerPath } from "./Constant";
+import * as signalR from "@microsoft/signalr";
+let connection = null; // تعريف الاتصال كمتغير عام
+export const SendSignalMessageForOrders = async (message) => {
+  const connection = new signalR.HubConnectionBuilder()
+    .withUrl(`${ServerPath}/orderHub`, {
+      withCredentials: false, // مهم جداً للسماح بالـ CORS
+    }) // استبدل `your-api-url` برابط API الخاص بك
+    .withAutomaticReconnect() // يعيد الاتصال تلقائيًا عند الانقطاع
+    .build();
+
+  try {
+    await connection.start();
+    await connection.invoke("SendMessage", message);
+    console.log("📤 Message sent:", message);
+  } catch (error) {
+    console.error("❌ Connection failed:", error);
+  } finally {
+    await connection.stop();
+  }
+};
+export const startListeningToMessages = async (onMessageReceived) => {
+  if (!connection) {
+    connection = new signalR.HubConnectionBuilder()
+      .withUrl(`${ServerPath}/orderHub`, {
+        withCredentials: false, // مهم جداً للسماح بالـ CORS
+      })
+      .withAutomaticReconnect()
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+  }
+
+  try {
+    await connection.start();
+    connection.on("ReceiveMessage", (message) => {
+      if (onMessageReceived) {
+        onMessageReceived(message);
+      }
+    });
+  } catch (error) {
+    console.error("❌ Connection failed:", error);
+  }
+};
+
+export const stopListeningToMessages = () => {
+  if (connection) {
+    connection.stop();
+    connection = null;
+  }
+};
 export default function getDeliveryDate() {
   const today = new Date();
   today.setDate(today.getDate() + 7);
@@ -39,11 +89,11 @@ export const egyptianGovernorates = [
   "الوادي الجديد",
 ];
 export function getRoleFromToken(token) {
+  if (!token) return null;
   try {
     // فك تشفير التوكن (JWT)
     const payload = JSON.parse(atob(token.split(".")[1]));
 
-    // استخراج الدور (role) من الـ payload
     return payload.role || null;
   } catch (error) {
     console.error("Invalid token:", error);

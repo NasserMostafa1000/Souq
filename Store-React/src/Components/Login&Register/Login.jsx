@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import { GoogleLogin } from "@react-oauth/google";
-import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet"; // تأكد من تثبيت react-helmet
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { Howl } from "howler"; // استيراد مكتبة Howler.js
 import "../../Styles/Login.css";
 import API_BASE_URL from "../Constant.js";
+import WebSiteLogo from "../../../public/WebsiteLogo/WebsiteLogo.jsx";
+import { getRoleFromToken } from "../../Components/utils.js"; // التأكد من أنك قد وضعت هذه الميثود في ملف utils
 
 export default function Login() {
   const [Email, setEmail] = useState("");
@@ -11,9 +15,16 @@ export default function Login() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { path } = location.state || "/";
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(100, 100);
   }, [message]);
+
+  // الاتصال بـ SignalR بناءً على الدور
+  // التأكد من أن الاتصال يتم مرة واحدة فقط بعد التوثيق
+
   const handleLogin = async ({
     email = null,
     password = null,
@@ -33,13 +44,12 @@ export default function Login() {
           authProvider: authProvider,
         }),
       });
-
       const data = await res.json();
-
       if (res.ok) {
         sessionStorage.setItem("token", data.token);
-        navigate("/");
+        path ? navigate(`${path}`) : navigate("/");
         setMessage("تم تسجيل الدخول بنجاح!");
+        OpenSignalConnection();
         setMessageType("success");
       } else {
         setMessage(data.message || "فشل تسجيل الدخول. الرجاء المحاولة مجدداً.");
@@ -80,9 +90,9 @@ export default function Login() {
           content="تسجيل الدخول إلى سوق البلد للتمتع بتجربة تسوق مميزة."
         />
       </Helmet>
-      <h1>🛒</h1>
-      <h1> سوق البلد</h1>
-
+      <div>
+        <WebSiteLogo width={200} height={100} />
+      </div>
       {message && <p className={`message ${messageType}`}>{message}</p>}
       <form onSubmit={handleSubmit}>
         <div>

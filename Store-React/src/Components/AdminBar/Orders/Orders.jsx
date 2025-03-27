@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import "../../../Styles/AdminOrders.css"; // استيراد التنسيق
 import API_BASE_URL from "../../Constant";
 import SearchBar from "../../Home/SearchBar";
+import { Howl } from "howler";
 import { Link } from "react-router-dom";
+import {
+  getRoleFromToken,
+  SendSignalMessageForOrders,
+  startListeningToMessages,
+} from "../../utils";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]); // تخزين الطلبات المعروضة
@@ -26,26 +32,31 @@ export default function Orders() {
     "تم الرفض",
     "تم الإرجاع",
   ];
-  function getSelectorStyle(status) {
-    switch (status) {
-      case "قيد المعالجة":
-        return { backgroundColor: "#f8f8f8", color: "black" };
-      case "تم التأكيد":
-        return { backgroundColor: "#d1e7dd", color: "black" }; // أخضر فاتح
-      case "قيد الشحن":
-        return { backgroundColor: "#fff3cd", color: "black" }; // أصفر فاتح
-      case "تم التوصيل":
-        return { backgroundColor: "#cfe2ff", color: "black" }; // أزرق فاتح
-      case "تم الرفض":
-        return { backgroundColor: "#f8d7da", color: "black" }; // أحمر فاتح
-      case "تم الإرجاع":
-        return { backgroundColor: "#e2e3e5", color: "black" }; // رمادي فاتح
-      default:
-        return {};
-    }
-  }
+  const playNotificationSound = () => {
+    const sound = new Howl({
+      src: ["/Sounds/notification.mp3"],
+      volume: 1.0,
+      html5: true,
+      onplayerror: function (id, error) {
+        console.error("❌ خطأ في تشغيل الصوت:", error);
+        sound.once("unlock", () => {
+          sound.play();
+        });
+      },
+    });
 
-  // دالة لتحديد نمط الـ select بناءً على حالة الطلب
+    sound.play();
+  };
+
+  useEffect(() => {
+    const Role = getRoleFromToken(sessionStorage.getItem("token"));
+    if (Role !== "User" && Role != null) {
+      startListeningToMessages((message) => {
+        fetchOrders(pageNumber);
+        playNotificationSound();
+      });
+    }
+  }, []);
   function getSelectorStyle(status) {
     switch (status) {
       case "قيد المعالجة":
@@ -76,8 +87,17 @@ export default function Orders() {
     setLoading(true);
     setError(null);
     try {
+      const token = sessionStorage.getItem("token"); // جلب التوكن من Session Storage
+
       const response = await fetch(
-        `${API_BASE_URL}Orders/FindOrder?OrderId=${OrderId}`
+        `${API_BASE_URL}Orders/FindOrder?OrderId=${OrderId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // إرسال التوكن في الهيدر
+          },
+        }
       );
       if (!response.ok) throw new Error("لم يتم العثور على الطلب");
       const data = await response.json();
@@ -90,7 +110,7 @@ export default function Orders() {
   };
 
   // جلب الطلبات
-  const fetchOrders = async () => {
+  const fetchOrders = async (PageNum) => {
     setLoading(true);
     setError(null);
 
@@ -98,7 +118,7 @@ export default function Orders() {
       const token = sessionStorage.getItem("token"); // جلب التوكن من Session Storage
 
       const response = await fetch(
-        `${API_BASE_URL}Orders/GetOrders?PageNum=${pageNumber}`,
+        `${API_BASE_URL}Orders/GetOrders?PageNum=${PageNum}`,
         {
           method: "GET",
           headers: {
@@ -121,7 +141,7 @@ export default function Orders() {
 
   useEffect(() => {
     if (!searchMode) {
-      fetchOrders();
+      fetchOrders(pageNumber);
     }
   }, [pageNumber, searchMode]);
 
@@ -134,15 +154,23 @@ export default function Orders() {
       setShowRejectionModal(true);
     } else {
       try {
+        const token = sessionStorage.getItem("token"); // جلب التوكن من Session Storage
+
         const response = await fetch(
-          `${API_BASE_URL}Orders/UpdateOrderStatues?OrderId=${orderId}&StatusName=${newStatus}`,
+          `${API_BASE_URL}Orders/UpdateOrderStatues?OrderId=${Number(
+            orderId
+          )}&StatusName=${newStatus}`,
           {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // إرسال التوكن في الهيدر
+            },
           }
         );
         if (!response.ok) throw new Error("فشل تحديث حالة الطلب");
         // تحديث الطلب في قائمة الطلبات المعروضة
+
         setOrders((prevOrders) =>
           prevOrders.map((order) =>
             order.orderId === orderId
@@ -158,6 +186,7 @@ export default function Orders() {
               : order
           )
         );
+        await SendSignalMessageForOrders("Order Statues Updated");
       } catch (err) {
         alert(`خطأ: ${err.message}`);
       }
@@ -167,12 +196,16 @@ export default function Orders() {
   // دالة تحديث سبب الرفض (طلب منفصل)
   const updateRejectionReason = async (orderId, reason) => {
     try {
+      const token = sessionStorage.getItem("token"); // جلب التوكن من Session Storage
       const url = `${API_BASE_URL}Orders/UpdateOrderStatues?OrderId=${orderId}&StatusName=تم الرفض&rejectionreason=${encodeURIComponent(
         reason
       )}`;
       const response = await fetch(url, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // إرسال التوكن في الهيدر
+        },
       });
       if (!response.ok) throw new Error("فشل تحديث سبب الرفض");
       // تحديث البيانات في الواجهة
@@ -203,11 +236,15 @@ export default function Orders() {
     }
     // أولاً تحديث حالة الطلب إلى "تم الرفض" (بدون سبب) في قاعدة البيانات
     try {
+      const token = sessionStorage.getItem("token"); // جلب التوكن من Session Storage
       const response = await fetch(
         `${API_BASE_URL}Orders/UpdateOrderStatues?OrderId=${currentOrderId}&StatusName=تم الرفض`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // إرسال التوكن في الهيدر
+          },
         }
       );
       if (!response.ok) throw new Error("فشل تحديث حالة الطلب");
@@ -319,7 +356,14 @@ export default function Orders() {
           </thead>
           <tbody>
             {orders.map((order) => (
-              <tr key={order.orderId} style={{ color: "black" }}>
+              <tr
+                key={order.orderId}
+                style={{
+                  color: "black",
+                  backgroundColor:
+                    order.orderStatus == "قيد المعالجة" ? "red" : "white",
+                }}
+              >
                 {/* جعل معرف الطلب قابلًا للنقر */}
                 <td>
                   <Link to={`/Admin/order-details/${order.orderId}`}>
@@ -391,5 +435,3 @@ export default function Orders() {
     </div>
   );
 }
-
-// دالة لتحديد نمط الـ select بناءً على حالة الطلب

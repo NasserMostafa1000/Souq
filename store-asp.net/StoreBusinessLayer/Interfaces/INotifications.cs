@@ -8,6 +8,6 @@ namespace StoreBusinessLayer.Interfaces
 {
     public interface INotifications
     {
-        Task SendNotification(string Subject, string Body, string UserProviderIdentifier); 
+        Task SendNotification(string Subject, string Body, string UserContactInfo); 
     }
 }

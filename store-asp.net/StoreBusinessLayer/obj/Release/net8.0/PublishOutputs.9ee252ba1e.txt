@@ -7,6 +7,12 @@ C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Rele
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Google.Apis.dll
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Google.Apis.Auth.dll
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Google.Apis.Core.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.Authorization.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.SignalR.Core.dll
+C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.Data.SqlClient.dll
 C:\Users\Elalamia\Desktop\online store\store-asp.net\StoreBusinessLayer\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.dll

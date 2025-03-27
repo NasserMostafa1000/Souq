@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import API_BASE_URL from "../../../Constant";
+import API_BASE_URL, { ServerPath } from "../../../Constant";
 import { colors, sizes } from "../../../utils"; // تأكد من استيراد sizes مع colors
 import "../../../../Styles/ProductForm.css"; // استيراد التنسيق
 
@@ -216,7 +216,6 @@ export default function ProductForm() {
 
       {/* زر لإضافة تفاصيل إضافية */}
       <div className="add-details-container">
-        <p className="add-details-text">أضف تفاصيل إضافية ثم قم بذلك:</p>
         <button className="add-details-button" onClick={handleAddDetails}>
           ➕ إضافة تفاصيل إضافية
         </button>
@@ -233,10 +232,7 @@ export default function ProductForm() {
           <div className="product-image-container">
             {detail.productImage ? (
               <img
-                src={
-                  "https://souqelbald-001-site1.ptempurl.com/" +
-                  detail.productImage
-                }
+                src={ServerPath + detail.productImage}
                 alt={`${product.productName}`}
                 className="product-image"
               />

@@ -412,15 +412,15 @@ namespace StoreBusinessLayer.Products
                 .Where(details => details.ProductId == ProductId && details.ColorId == ColorId).Distinct()
                 .ToListAsync();
 
-            List<string> colorNames = new List<string>();
+            List<string> SizesNames = new List<string>();
 
             foreach (var details in productDetails)
             {
                 string SizeName = await _Sizes.GetSizeNameByIdAsync(details.SizeId);
-                colorNames.Add(SizeName);
+                SizesNames.Add(SizeName);
             }
 
-            return colorNames;
+            return SizesNames;
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //                                           Admin section

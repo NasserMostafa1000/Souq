@@ -60,7 +60,23 @@ namespace StoreBusinessLayer.Users
 
                     await _context.Clients.AddAsync(newClient);
                     await _context.SaveChangesAsync();
-            
+                    string message = $@"
+مرحبًا {newClient.FirstName} {newClient.SecondName},
+
+لقد تم إنشاء حسابك بنجاح في سوق البلد. يمكنك الآن الوصول إلى جميع خدماتنا باستخدام بريدك الإلكتروني: {newClient.User.EmailOrAuthId}.
+
+لا تتردد في الاتصال بنا إذا كنت بحاجة إلى أي مساعدة.
+
+مع أطيب التحيات،
+فريق الدعم الفني
+سوق البلد";
+
+                    await NotificationServices.NotificationsCreator.SendNotification(
+                        "تم إنشاء حسابك بنجاح",  // العنوان
+                        message,  // الرسالة الفعلية
+                        newClient.User.EmailOrAuthId,  // البريد الإلكتروني الخاص بالعميل
+                        "gmail"  // مزود الإشعار (يمكن تغييره حسب الخدمة المستخدمة)
+                    );
 
 
 

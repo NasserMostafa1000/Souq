@@ -73,7 +73,7 @@ export default function ContactUs() {
                       rel="noopener noreferrer"
                       className="whatsapp-link"
                     >
-                      <FaWhatsapp size={24} style={{ marginRight: "8px" }} />
+                      <FaWhatsapp size={24} className="icon" />
                       ارسل لنا رساله
                     </a>
                   ) : (
@@ -87,7 +87,7 @@ export default function ContactUs() {
                       href={`tel:${info.callNumber.replace(/[^0-9]/g, "")}`}
                       className="phone-link"
                     >
-                      <FaPhone size={24} style={{ marginRight: "8px" }} />
+                      <FaPhone size={24} className="icon" />
                       اتصل الأن
                     </a>
                   ) : (
@@ -95,20 +95,19 @@ export default function ContactUs() {
                   )}
                 </p>
                 <p>
-                  {info.email}
+                  <strong style={{ direction: "ltr" }}>البريد:</strong>{" "}
                   {info.email ? (
                     <a href={`mailto:${info.email}`} className="email-link">
                       <FaEnvelope
                         size={24}
-                        style={{ marginRight: "8px", direction: "ltr" }}
+                        className="icon"
+                        style={{ marginRight: "8px" }}
                       />
+                      {info.email}
                     </a>
                   ) : (
                     "غير متوفر"
                   )}
-                  <strong style={{ direction: "ltr" }}>
-                    :البريد الالكتروني
-                  </strong>{" "}
                 </p>
               </div>
             ))}

@@ -2,7 +2,7 @@ import React from "react";
 import "../../Styles/ProductItem.css";
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import API_BASE_URL from "../Constant";
+import API_BASE_URL, { ServerPath } from "../../Components/Constant.js";
 
 export default function ProductItem({ product, CurrentRole }) {
   const {
@@ -37,7 +37,7 @@ export default function ProductItem({ product, CurrentRole }) {
 
       {productImage && (
         <img
-          src={"https://souqelbald-001-site1.ptempurl.com/" + productImage}
+          src={ServerPath + productImage}
           alt={productName}
           className="product-image"
         />

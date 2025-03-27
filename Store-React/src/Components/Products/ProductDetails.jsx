@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import API_BASE_URL from "../../Components/Constant.js";
+import API_BASE_URL, { ServerPath } from "../../Components/Constant.js";
 import "../../Styles/productDetails.css";
 import BtnAddToCart from "../Cart/BtnAddToCart.jsx";
-import getDeliveryDate from "../utils.js";
+import getDeliveryDate, {
+  SendSignalMessageForOrders,
+  startListeningToMessages,
+} from "../utils.js";
 
 export default function ProductDetails() {
   const location = useLocation();
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // إذا تم تمرير المنتج عبر state نستخدمه، وإلا نبدأ بـ null
   const [product, setProduct] = useState(location.state?.product || null);
   const [Img, setImg] = useState("");
   const [loading, setLoading] = useState(!product);
@@ -51,7 +52,6 @@ export default function ProductDetails() {
       setLoading(false);
     }
   }, [id, product]);
-
   const GetDetailsOfCurrentSizeAndColor = async () => {
     if (!product) return;
     setLoading(true);
@@ -72,11 +72,17 @@ export default function ProductDetails() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     window.scrollTo(0, 0);
+    startListeningToMessages((message) => {
+      if (
+        message.include("Product Sold With Product Details Id") &&
+        message.include(DetailsId.toString())
+      ) {
+        GetDetailsOfCurrentSizeAndColor();
+      }
+    });
   }, [message]);
-
   function CurrentProduct() {
     const Price =
       product?.discountPercentage === 0
@@ -89,21 +95,18 @@ export default function ProductDetails() {
       totalPrice: Price * Quantity,
     };
   }
-
   const handlBuyClick = () => {
     const token = sessionStorage.getItem("token");
     if (!token) {
       setMessage("يجب تسجيل الدخول لمتابعة عملية الشراء.");
-      setRedirecting(true);
       setTimeout(() => {
-        navigate("/login");
-      }, 5000);
+        navigate("/Login", { state: { path: `/ProductDetails/${id}` } });
+      }, 1000);
       return;
     }
     const Product = CurrentProduct();
     navigate("/PurchaseDetails", { state: { Product } });
   };
-
   useEffect(() => {
     if (!product) return;
 
@@ -150,7 +153,6 @@ export default function ProductDetails() {
     fetchProducts();
     fetchColorsAndSizes();
   }, [product]);
-
   useEffect(() => {
     const fetchDetails = async () => {
       if (!CurrentSize) return;
@@ -171,16 +173,13 @@ export default function ProductDetails() {
     };
 
     fetchDetails();
-  }, [CurrentSize]);
-
+  }, [CurrentSize, CurrentColor]);
   useEffect(() => {
     if (CurrentColor) {
       GetDetailsOfCurrentSizeAndColor();
     }
   }, [CurrentSize, CurrentColor]);
-  const handleBackToHome = () => {
-    navigate("/"); // يقوم بالانتقال إلى الصفحة الرئيسية مباشرة
-  };
+
   if (loading) return <div>جاري التحميل...</div>;
 
   const availability = (
@@ -218,7 +217,7 @@ export default function ProductDetails() {
         />
         <meta
           property="og:image"
-          content={`https://souqelbald-001-site1.ptempurl.com${Img}`} // تأكد من أن الرابط صحيح للصورة
+          content={ServerPath + Img} // تأكد من أن الرابط صحيح للصورة
         />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:type" content="product" />
@@ -233,19 +232,13 @@ export default function ProductDetails() {
         />
         <meta
           name="twitter:image"
-          content={`https://souqelbald-001-site1.ptempurl.com/${Img}`} // تأكد من أن الرابط صحيح للصورة
+          content={ServerPath + Img} // تأكد من أن الرابط صحيح للصورة
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       {availableQuantity > 0 && (
         <>
-          <div>
-            {/* زر للرجوع إلى الصفحة الرئيسية */}
-            <button onClick={handleBackToHome}>
-              الرجوع إلى الصفحة الرئيسية
-            </button>
-          </div>
           <BtnAddToCart productDetailsId={DetailsId} Quantity={Quantity} />
           {message && (
             <div
@@ -260,7 +253,7 @@ export default function ProductDetails() {
 
       <div className="image-container">
         <img
-          src={`https://souqelbald-001-site1.ptempurl.com/${Img}`}
+          src={ServerPath + Img}
           alt={product?.productName}
           className="product-img"
         />

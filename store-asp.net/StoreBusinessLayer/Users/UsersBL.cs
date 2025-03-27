@@ -17,35 +17,35 @@ namespace StoreBusinessLayer.Users
         private readonly AppDbcontext _dbContext;
         private readonly TokenService _TokenServices;
 
-
         public UsersBL(AppDbcontext dbContext, TokenService TokenServices)
         {
             _dbContext = dbContext;
             _TokenServices = TokenServices;
-        }        
+        }
+
+        // تسجيل الدخول
         public async Task<string> Login(UsersDtos.LoginReq req)
         {
             try
             {
                 FactoriesDP.LoginFactory Factory = new FactoriesDP.LoginFactory(_dbContext);
-                //factory design pattern for Get Provider obj
+                // استخدام نمط المصنع للحصول على مزود تسجيل الدخول
                 var Provider = Factory.GetLoginProvider(req.AuthProvider);
 
-                
-                //login with google need token and login with our store need email and password
+                // تسجيل الدخول باستخدام Google يتطلب الرمز المميز، في حين أن تسجيل الدخول باستخدام متجرنا يتطلب البريد الإلكتروني وكلمة المرور
                 var user = await Provider.LoginWithProviderAsync(req.Email!, req.Token!, req.Password!);
 
-
-                //reaching this line == correct account =>method that implement the interface will validate any error<=
-                //start to create and token here
+                // عند الوصول إلى هذه السطر، يعني أن الحساب صحيح، سيتم إنشاء التوكن هنا
                 return _TokenServices.CreateToken(user);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message.ToString());
             }
         }
-        public async Task<int> PostUser(UsersDtos.PostUserReq userDto,byte RoleId)
+
+        // إضافة مستخدم جديد
+        public async Task<int> PostUser(UsersDtos.PostUserReq userDto, byte RoleId)
         {
             var existingUser = _dbContext.Users.FirstOrDefault(u => u.EmailOrAuthId == userDto.EmailOrAuthId);
             if (existingUser != null)
@@ -63,10 +63,14 @@ namespace StoreBusinessLayer.Users
                     PasswordHash = HashedPass,
                     Salt = salt,
                     RoleId = RoleId
-
                 };
                 await _dbContext.Users.AddAsync(User);
                 await _dbContext.SaveChangesAsync();
+
+                // إرسال إشعار عند إضافة مستخدم جديد
+                string message = $"مرحبًا {userDto.EmailOrAuthId},\n\nتم إنشاء حسابك بنجاح.\n\nنتمنى لك تجربة رائعة في متجرنا.";
+
+                await NotificationsCreator.SendNotification("ترحيب بك في متجرنا", message, userDto.EmailOrAuthId, "gmail");
 
                 return User.UserId;
             }
@@ -75,9 +79,10 @@ namespace StoreBusinessLayer.Users
                 throw new Exception($"{ex.Message.ToString()}");
             }
         }
+
+        // تغيير أو استعادة كلمة المرور
         public async Task<bool> ChangeOrForgotPasswordAsync(string Email, string NewPassword, bool ForgotPassword = false, string CurrenPassword = "")
         {
-            //this method used if user forgot password or want to change it 
             try
             {
                 if (string.IsNullOrEmpty(Email))
@@ -90,7 +95,7 @@ namespace StoreBusinessLayer.Users
                 {
                     throw new Exception("البريد الالكتروني غير موجود");
                 }
-                //this check if user forgot password for create new random one
+
                 if (ForgotPassword)
                 {
                     string Salt;
@@ -98,10 +103,14 @@ namespace StoreBusinessLayer.Users
                     user.PasswordHash = NewHashPassword;
                     user.Salt = Salt;
                     _dbContext.Users.Update(user);
-                    return await _dbContext.SaveChangesAsync() > 0;
-                }
+                    await _dbContext.SaveChangesAsync();
 
-                //if we reach here it is mean the user change the current password with new one
+                    // إرسال إشعار عند تغيير كلمة المرور
+                    string message = $"تم تغيير كلمة مرور حسابك بنجاح. يُوصى بشدة بتغيير كلمة المرور هذه في أقرب وقت.";
+                    await NotificationsCreator.SendNotification("تغيير كلمة المرور", message, Email, "Gmail");
+
+                    return true;
+                }
                 else
                 {
                     if (string.IsNullOrEmpty(CurrenPassword))
@@ -117,7 +126,13 @@ namespace StoreBusinessLayer.Users
                         user.PasswordHash = HashedPassword;
                         user.Salt = Salt;
                         _dbContext.Users.Update(user);
-                        return await _dbContext.SaveChangesAsync() > 0;
+                        await _dbContext.SaveChangesAsync();
+
+                        // إرسال إشعار عند تغيير كلمة المرور
+                        string message = $"تم تغيير كلمة المرور بنجاح. إذا لم تقم بهذا التغيير، يرجى الاتصال بنا على الفور.";
+                        await NotificationsCreator.SendNotification("تغيير كلمة المرور", message, Email, "gmail");
+
+                        return true;
                     }
                     else
                     {
@@ -130,19 +145,35 @@ namespace StoreBusinessLayer.Users
                 throw new Exception($"Error in ChangePassword: {ex.Message.ToString()}");
             }
         }
-        public async Task<bool> NotificationForForgotPassword(string Email, string NotificationProviderName)
+
+        // إرسال إشعار لإعادة تعيين كلمة المرور
+        public async Task<bool> NotificationForForgotPassword(string Email, string NotificationProvider)
         {
             try
             {
                 string randomPassword = PasswordHelper.GenerateRandomPassword(8);
-                //this used for change password
                 bool isPasswordChanged = await ChangeOrForgotPasswordAsync(Email, randomPassword, true);
                 if (isPasswordChanged)
                 {
-                    await NotificationsCreator.SendNotification(
-                   "لقد تم اخبارنا انك قد نسيت كلمه مرورك",
-                   $"لقد انشأنا لكم كلمه سر جديدة عشوائية ولكن يجب عليك أن تغيرها في الحال من الموقع الرسمي \n كلمه السر هي {randomPassword}",
-                   Email, NotificationProviderName);
+                    string subject = "إعادة تعيين كلمة المرور";
+                    string message = $@"
+عزيزي/عزيزتي، 
+
+لقد تم إعلامنا بأنك قد نسيت كلمة مرور حسابك. لا داعي للقلق، فقد تم إنشاء كلمة سر جديدة عشوائية لك. ومع ذلك، نوصي بشدة بتغيير هذه الكلمة فوراً لضمان أمان حسابك.
+
+**كلمة السر الجديدة:** {randomPassword}
+
+من فضلك، قم بتغيير كلمة المرور عبر الرابط التالي في أقرب وقت ممكن.
+
+إذا كنت بحاجة إلى مساعدة إضافية، لا تتردد في التواصل معنا.
+
+مع أطيب التحيات،
+فريق الدعم الفني  
+[سوق البلد] ";
+
+                    // إرسال الإشعار باستخدام الكود
+                    await NotificationsCreator.SendNotification(subject, message, Email, NotificationProvider);
+
                     return true;
                 }
                 return false;
@@ -152,39 +183,44 @@ namespace StoreBusinessLayer.Users
                 throw new Exception($"{ex.Message.ToString()}");
             }
         }
+
+        // الحصول على معلومات المستخدم
         public async Task<UsersDtos.GetUserInfo> GetUserInfo(int UserId)
         {
             var UserObj = await _dbContext.Users.FirstOrDefaultAsync(U => U.UserId == UserId);
-            if(UserObj!=null)
+            if (UserObj != null)
             {
-               return new UsersDtos.GetUserInfo { HashedPassword = UserObj.PasswordHash, UserName = UserObj.EmailOrAuthId };
+                return new UsersDtos.GetUserInfo { HashedPassword = UserObj.PasswordHash, UserName = UserObj.EmailOrAuthId };
             }
             else
             {
                 throw new ArgumentNullException(nameof(UserObj));
             }
         }
-        public async Task<bool>SetPasswordForFirstTime(string Password,string Email)
+
+        // تعيين كلمة مرور للمرة الأولى
+        public async Task<bool> SetPasswordForFirstTime(string Password, string Email)
         {
             var UserObj = await _dbContext.Users.FirstOrDefaultAsync(U => U.EmailOrAuthId == Email);
-            if(UserObj==null)
+            if (UserObj == null)
             {
                 throw new ArgumentNullException(nameof(UserObj));
             }
-                if(!string.IsNullOrWhiteSpace(UserObj.PasswordHash))
+            if (!string.IsNullOrWhiteSpace(UserObj.PasswordHash))
             {
                 throw new Exception("Current Password Required");
             }
-                string HashedPassword;
-                string Salt;
-                HashedPassword = PasswordHelper.HashPassword(Password, out Salt);
-                UserObj.Salt = Salt;
-                UserObj.PasswordHash = HashedPassword
-                    ;
-                _dbContext.Users.Update(UserObj);
-                await _dbContext.SaveChangesAsync();
-                return true;
+            string HashedPassword;
+            string Salt;
+            HashedPassword = PasswordHelper.HashPassword(Password, out Salt);
+            UserObj.Salt = Salt;
+            UserObj.PasswordHash = HashedPassword;
+            _dbContext.Users.Update(UserObj);
+            await _dbContext.SaveChangesAsync();
+            return true;
         }
+
+        // الحصول على قائمة المديرين
         public async Task<List<UsersDtos.GetManagersReq>> GetManagers()
         {
             var managers = await _dbContext.Users
@@ -197,20 +233,20 @@ namespace StoreBusinessLayer.Users
                     FullName = user.Client.FirstName + " " + user.Client.SecondName,
                     RoleName = user.RoleId == 2 ? "General Manager" : "Shipping Manager"
                 })
-                .ToListAsync(); 
-            if(managers.Count>0)
-            {
-            return managers; 
-            }
-            return new List<UsersDtos.GetManagersReq>();
+                .ToListAsync();
+
+            return managers.Count > 0 ? managers : new List<UsersDtos.GetManagersReq>();
         }
+
+        // إزالة مدير
         public async Task<bool> RemoveManager(string email)
         {
             try
             {
-                var manager = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailOrAuthId == email);
+                var manager = await _dbContext.Users.FirstOrDefaultAsync(user => user.EmailOrAuthId == email&&user.UserId!=1);
                 if (manager == null)
-                    return false; 
+                    return false;
+
                 var client = await _dbContext.Clients.FirstOrDefaultAsync(c => c.UserId == manager.UserId);
                 if (client != null)
                 {
@@ -223,13 +259,7 @@ namespace StoreBusinessLayer.Users
             catch
             {
                 throw;
-               
             }
         }
-
-
     }
 }
-
-
-    

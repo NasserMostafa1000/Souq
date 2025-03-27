@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace StoreDataAccessLayer.Entities
 {
-    public class Users
+    public class Users                                 
     {
         public int UserId { get; set; }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../Styles/Signup.css";
 import API_BASE_URL from "../Constant";
 import { Helmet } from "react-helmet"; // تأكد من تثبيت react-helmet
+import WebSiteLogo from "../../../public/WebsiteLogo/WebsiteLogo.jsx";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -85,10 +86,10 @@ export default function Signup() {
           content="انشاء حساب في سوق البلد للتمتع بتجربة تسوق مميزة."
         />
       </Helmet>
-      <h1>🛒</h1>
-      <h1> سوق البلد</h1>
-      <h1>إنشاء حساب</h1>
-
+      <div>
+        <WebSiteLogo width={200} height={100} />
+      </div>
+     <h1>إنشاء حساب</h1>
       {message && <div className={`message ${messageType}`}>{message}</div>}
       <form onSubmit={handleSubmit}>
         <input

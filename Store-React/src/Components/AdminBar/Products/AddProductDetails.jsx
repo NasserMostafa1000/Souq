@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import API_BASE_URL from "../../Constant";
 import { colors, sizes } from "../../utils"; // تأكد من أن هذه الاستيرادات صحيحة
-import { useRef, useEffect } from "react";
 
 export default function AddProductDetails() {
   const navigate = useNavigate();
@@ -23,6 +22,7 @@ export default function AddProductDetails() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // لتحديد نوع الرسالة (ناجحة أو فاشلة)
   const [detailsAdded, setDetailsAdded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // حالة تحميل جديدة
 
   // ref لحقل رفع الصورة لإعادة تعيينه
   const fileInputRef = useRef(null);
@@ -67,12 +67,15 @@ export default function AddProductDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true); // تعيين حالة التحميل إلى true
+
     let uploadedImageUrl = productImage;
     if (selectedFile) {
       uploadedImageUrl = await handleImageUpload(selectedFile);
       if (!uploadedImageUrl) {
         setMessage("فشل رفع الصورة. الرجاء المحاولة مرة أخرى.");
         setMessageType("error");
+        setIsLoading(false); // تعيين حالة التحميل إلى false بعد الانتهاء
         return;
       }
       setProductImage(uploadedImageUrl);
@@ -105,7 +108,7 @@ export default function AddProductDetails() {
       }
 
       const data = await response.json();
-      setMessage(`تمت إضافة تفاصيل المنتج بنجاح. معرف التفاصيل: ${data.id}`);
+      setMessage(`تم الاضافه بنجاح`);
       setMessageType("success");
       setDetailsAdded(true);
       // إعادة ضبط الحقول بعد الإضافة
@@ -120,6 +123,8 @@ export default function AddProductDetails() {
     } catch (error) {
       setMessage(`خطأ: ${error.message}`);
       setMessageType("error");
+    } finally {
+      setIsLoading(false); // تعيين حالة التحميل إلى false بعد الانتهاء
     }
   };
 
@@ -157,6 +162,26 @@ export default function AddProductDetails() {
         >
           {message}
         </p>
+      )}
+      {isLoading && (
+        <div
+          style={{
+            textAlign: "center",
+            padding: "20px",
+          }}
+        >
+          <div
+            className="spinner"
+            style={{
+              border: "4px solid #f3f3f3" /* Light grey */,
+              borderTop: "4px solid #3498db" /* Blue */,
+              borderRadius: "50%",
+              width: "50px",
+              height: "50px",
+              animation: "spin 2s linear infinite",
+            }}
+          ></div>
+        </div>
       )}
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import API_BASE_URL from "../Constant";
+import API_BASE_URL, { ServerPath } from "../Constant";
 import "../../Styles/PurchaseDetail.css"; // تأكد من أن المسار صحيح لملف CSS
 import { Helmet } from "react-helmet"; // استيراد Helmet
 
@@ -24,11 +24,9 @@ export default function OrderDetail() {
             },
           }
         );
-
         if (!response.ok) {
           throw new Error("فشل في جلب تفاصيل الطلب");
         }
-
         const data = await response.json();
         setOrderDetails(data);
       } catch (err) {
@@ -66,7 +64,7 @@ export default function OrderDetail() {
           <div className="order-detail-card" key={index}>
             <img
               src={
-                "https://souqelbald-001-site1.ptempurl.com/" + detail.imagePath
+                ServerPath + detail.imagePath
               }
               alt={detail.productName}
               className="product-image"

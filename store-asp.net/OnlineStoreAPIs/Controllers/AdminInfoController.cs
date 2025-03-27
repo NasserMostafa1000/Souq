@@ -35,7 +35,6 @@ namespace OnlineStoreAPIs.Controllers
         [HttpGet("get-admin-info")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [AllowAnonymous]
         public async Task<ActionResult> GetAdminInfo()
         {
             try

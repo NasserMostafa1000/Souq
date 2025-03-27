@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using OnlineStoreAPIs.Hubs;
 using StoreBusinessLayer.Carts;
 using StoreBusinessLayer.Clients;
 using StoreBusinessLayer.Orders;
@@ -13,18 +15,18 @@ namespace OnlineStoreAPIs.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        OrdersBL _OrdersBL;
-        ClientsBL _Clients;
-        CartsBL _CartsBl;
-        //---------------------------------------------------------------------------------------------------
-        //                                       Client Section
-        //---------------------------------------------------------------------------------------------------
-        public OrdersController(OrdersBL ordersBL, ClientsBL ClientsBL,CartsBL carts)
+       private readonly OrdersBL _OrdersBL;
+        private readonly ClientsBL _Clients;
+        private readonly CartsBL _CartsBl;
+       public OrdersController(OrdersBL ordersBL, ClientsBL ClientsBL,CartsBL carts)
         {
             _OrdersBL = ordersBL;
             _Clients = ClientsBL;
             _CartsBl = carts;
         }
+       //---------------------------------------------------------------------------------------------------
+       //                                       Client Section
+       //---------------------------------------------------------------------------------------------------
          [Authorize(Roles ="User")]
         [HttpPost("PostOrder")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -202,8 +204,7 @@ namespace OnlineStoreAPIs.Controllers
         public async Task<ActionResult> UpdateOrderStatues(int OrderId,string StatusName,string RejectionReason="")
         {
             try
-            {
-
+            {       
                 bool IsUpdated = await _OrdersBL.UpdateOrderStatusByName(StatusName,OrderId, RejectionReason);
                 if (IsUpdated)
                 {

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using OnlineStoreAPIs.Hubs;
 using StoreBusinessLayer.AdminInfo;
 using StoreBusinessLayer.Carts;
 using StoreBusinessLayer.Clients;
@@ -18,8 +20,9 @@ namespace OnlineStoreAPIs
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // إعداد قاعدة البيانات
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<AppDbcontext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
 
@@ -35,6 +38,7 @@ namespace OnlineStoreAPIs
             builder.Services.AddScoped<OrdersBL>();
             builder.Services.AddScoped<CartsBL>();
             builder.Services.AddScoped<AdminInfoBL>();
+            builder.Services.AddSignalR();
 
             // إعداد المصادقة باستخدام JWT
             var key = Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]);
@@ -51,39 +55,38 @@ namespace OnlineStoreAPIs
                         ValidAudience = builder.Configuration["JwtSettings:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(key)
                     };
+                    
                 });
 
             // تفعيل التصريح (Authorization)
             builder.Services.AddAuthorization();
 
-            // تفعيل الـ Controllers و Swagger
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            // إعداد CORS للسماح بجميع الطلبات
+            // تفعيل CORS
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
+                options.AddPolicy("AllowAll",
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin() // السماح بأي مصدر
+                              .AllowAnyMethod() // السماح بأي طريقة (GET, POST, PUT, DELETE, ...)
+                              .AllowAnyHeader(); // السماح بأي رأس (Header)
+                    });
             });
 
-            var app = builder.Build();
 
+          //  builder.Services.AddSignalR();
+
+            var app = builder.Build();
             // ترتيب الـ Middleware بشكل صحيح
-            app.UseCors("AllowAllOrigins"); // تأكد من وضعه قبل UseRouting()
+            app.UseCors("AllowAll"); // تأكد من وضعه قبل UseRouting()
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-              _ = endpoints.MapControllers();
+                _ = endpoints.MapControllers();
+                _ =endpoints.MapHub<OrderHub>("/orderHub"); // لتحديد مسار الـ SignalR Hub
             });
 
             app.UseHttpsRedirection();

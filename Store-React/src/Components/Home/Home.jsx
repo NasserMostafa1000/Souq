@@ -92,7 +92,10 @@ export default function Home() {
   }, [clothesLoaded]);
 
   function handleProductClick(product) {
-    navigate(`/productDetails/${product.productId}`, { state: { product } });
+    navigate(`/productDetails/${product.productId}`, {
+      state: { product },
+      replace: true,
+    });
   }
 
   if (loading) {

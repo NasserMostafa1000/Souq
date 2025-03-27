@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet"; // استيراد Helmet لضبط SEO
 import { useLocation, useNavigate } from "react-router-dom";
-import API_BASE_URL from "../../Components/Constant.js";
 import "../../Styles/PurchaseOperationDetails.css";
-import getDeliveryDate from "../utils.js";
+import getDeliveryDate, { SendSignalMessageForOrders } from "../utils.js";
 import AddressSelector from "./AddressSelector.jsx";
 import PhoneNumberModal from "./PhoneModel.jsx";
 import OrderSummary from "./PurchaseSummray.jsx";
@@ -16,10 +15,7 @@ import {
   postOrderDetails,
   PostListOfOrdersDetails,
 } from "./api.js";
-import ContactUs from "../../Components/Contact_About/ContactUsCom.jsx";
-import WebSiteLogo from "../../../public/WebsiteLogo/WebsiteLogo.jsx";
-import SuccessForm from "./SuccessForm.jsx"; // استيراد النموذج
-
+import SuccessForm from "./SuccessForm.jsx";
 export default function PurchaseOperationDetails() {
   const [addresses, setAddresses] = useState({});
   const [selectedAddressId, setSelectedAddressId] = useState("");
@@ -41,12 +37,9 @@ export default function PurchaseOperationDetails() {
   const [purchaseLoading, setPurchaseLoading] = useState(false);
   const [message, setMessage] = useState(""); // رسالة الحالة أو الخطأ
   const [showSuccessForm, setShowSuccessForm] = useState(false);
-
   const navigate = useNavigate();
   const location = useLocation();
   const Products = location.state?.Product;
-
-  // التحقق من تعطيل زر الشراء
   const isBuyDisabled =
     (!UserTransactionNum && paymentMethod === "online") ||
     (!transactionImage && paymentMethod === "online") ||
@@ -135,6 +128,7 @@ export default function PurchaseOperationDetails() {
 
     try {
       const OrderId = await postOrder(token, orderData);
+      await SendSignalMessageForOrders("new Order" + OrderId);
       if (Array.isArray(Products) && Products.length > 1) {
         await PostListOfOrdersDetails(OrderId, token, Products);
       } else {
@@ -187,9 +181,7 @@ export default function PurchaseOperationDetails() {
         </div>
       )}
 
-      <h1 className="title" style={{ color: "black", textAlign: "center" }}>
-        تفاصيل الطلب
-      </h1>
+      <h1 className="highlighted-title">تفاصيل الطلب</h1>
 
       <AddressSelector
         addresses={addresses}
@@ -213,9 +205,7 @@ export default function PurchaseOperationDetails() {
         هاتفك للاتصال: {clientPhone}
       </a>
 
-      <h1 className="title" style={{ color: "black", textAlign: "center" }}>
-        تفاصيل الشحنة
-      </h1>
+      <h2 className="highlighted-title">تفاصيل الشحنة</h2>
       <OrderSummary Products={Products} ShipPrice={ShipPrice} />
 
       <h4>شحن إلى: {addresses[selectedAddressId]}</h4>
@@ -224,7 +214,7 @@ export default function PurchaseOperationDetails() {
       </h4>
 
       <div className="payment-method-selection">
-        <h3 className="payment-title">طرق الدفع</h3>
+        <h3 className="highlighted-title">طرق الدفع</h3>
         <label>
           <input
             type="radio"
@@ -252,11 +242,8 @@ export default function PurchaseOperationDetails() {
               alt="Orange Cash"
               title="Orange Cash"
             />
-            <div className="transaction-info">
-              <strong>
-                يجب تحويل المبلغ المستحق هنا: {AdminTransactionNum}
-              </strong>
-            </div>
+            <div className="transaction-info"></div>
+            <strong>حول الفلوس هنا {AdminTransactionNum}</strong>
           </div>
         )}
         <label>

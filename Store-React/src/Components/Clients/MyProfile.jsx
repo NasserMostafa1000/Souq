@@ -142,6 +142,9 @@ export default function MyProfile() {
           <FaUser style={{ marginRight: "8px" }} />
           معلوماتك الشخصية
         </h3>
+        <div className="profile-icon-container">
+          <FaUser className="profile-icon" />
+        </div>
         <div className="card-content">
           <p>
             <strong className="label" onClick={() => setIsEditingName(true)}>

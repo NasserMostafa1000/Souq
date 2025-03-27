@@ -24,6 +24,48 @@ body {
   margin-bottom: 20px;
   color: black;
 }
+/* تنسيق العناوين المميزة */
+.highlighted-title {
+  background-color: #ffcc00; /* اختيار لون خلفية مميز (مثال: أصفر) */
+  color: #fff; /* لون النص أبيض */
+  padding: 10px 20px; /* إضافة بعض الحشو حول النص */
+  font-size: 1.6rem; /* حجم الخط */
+  font-weight: bold; /* جعل الخط عريض */
+  text-align: center; /* محاذاة النص في المنتصف */
+  border-radius: 8px; /* حواف دائرية */
+  margin-bottom: 20px; /* إضافة مسافة أسفل العنوان */
+}
+/* تنسيق العناوين المميزة */
+.highlighted-title {
+  background-color: #4caf50; /* اللون الأخضر الهادئ */
+  color: #fff; /* نص أبيض */
+  padding: 10px 20px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.highlighted-title:hover {
+  background-color: #45a049; /* تغيير اللون عند التمرير */
+  cursor: pointer;
+}
+
+/* تغيير ألوان العناوين حسب القسم */
+.payment-method-selection .highlighted-title {
+  background-color: #ff5722; /* لون برتقالي مميز */
+}
+
+.payment-method-selection .highlighted-title:hover {
+  background-color: #e64a19; /* تغيير اللون عند التمرير */
+}
+
+/* إذا أردت إضافة تأثير تفاعل عند التمرير على العنوان */
+.highlighted-title:hover {
+  background-color: #ff9800; /* تغيير اللون عند التمرير (مثال: برتقالي) */
+  cursor: pointer; /* تغيير شكل المؤشر عند التمرير */
+}
 
 /* تنسيق رسالة الحالة العامة */
 .global-message {

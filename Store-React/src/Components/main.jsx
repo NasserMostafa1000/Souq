@@ -21,7 +21,7 @@ import Managers from "./AdminBar/Managers/Managers";
 import AddProduct from "./AdminBar/Products/AddProduct";
 import AddProductDetails from "./AdminBar/Products/AddProductDetails";
 import ProductForm from "./AdminBar/Products/UpdateProduct/ProductForm";
-import Clients from "./Clients/Clients";
+import Clients from "./AdminBar/Clients";
 import UpdateAdminInfo from "./AdminBar/UpdateContactUs";
 import ContactUsCom from "./Contact_About/ContactUsCom";
 import AboutUs from "./Contact_About/AboutUs";

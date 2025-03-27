@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import { useNavigate, useLocation } from "react-router-dom";
 import NavBar from "../Home/Nav.jsx";
 import "../../Styles/FindProducts.css";
-import API_BASE_URL from "../Constant.js";
+import API_BASE_URL, { ServerPath } from "../Constant.js";
 import { FaEdit } from "react-icons/fa";
 import { getRoleFromToken } from "../utils.js";
 
@@ -80,10 +80,7 @@ export default function FindProducts() {
                 </div>
               )}
               <img
-                src={
-                  "https://souqelbald-001-site1.ptempurl.com" +
-                  product.productImage
-                }
+                src={ServerPath + product.productImage}
                 alt={product.productName}
                 className="find-product-image"
               />

@@ -7,7 +7,7 @@ import {
   FiPhone,
   FiInfo,
   FiChevronUp,
-  // لإيقونة "شروط الاستخدام"
+  FiHome,
   FiUser, // لإيقونة الملف الشخصي
   FiBox, // لإيقونة المنتجات
   FiClipboard, // لإيقونة الطلبات
@@ -104,11 +104,17 @@ export default function NavBar() {
             <div>
               <WebSiteLogo width={200} height={70} />
             </div>
-            <div className="logo" onClick={() => navigate("/")}>
+            <div
+              className="logo flex items-center"
+              onClick={() => navigate("/")}
+            >
+              {/* أيقونة البيت بجانب كلمة "سوق البلد" */}
               سوق البلد
+              <FiHome size={24} className="mr-2" />
             </div>
             {currentRole === "User" && (
               <div className="cart-icon" onClick={HandleCartClick}>
+                السله
                 <FiShoppingCart size={24} />
                 {cartCount > 0 && (
                   <span className="cart-count">{cartCount}</span>

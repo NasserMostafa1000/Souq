@@ -11,7 +11,6 @@ namespace OnlineStoreAPIs.Controllers
 {
     [Route("api/Clients")]
     [ApiController]
-    [AllowAnonymous]
     public class ClientsController : ControllerBase
     {
 
@@ -24,7 +23,6 @@ namespace OnlineStoreAPIs.Controllers
         [HttpPost("PostClient")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [AllowAnonymous]
         public async Task<ActionResult> AddNewClient(ClientsDtos.PostClientReq dto)
         {
             if (!ModelState.IsValid)

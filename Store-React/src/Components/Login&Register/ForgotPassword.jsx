@@ -7,11 +7,15 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState(""); // حالة لتخزين البريد الإلكتروني
   const [message, setMessage] = useState(""); // حالة لتخزين الرسائل
   const [messageType, setMessageType] = useState(""); // نوع الرسالة (نجاح أو خطأ)
+  const [loading, setLoading] = useState(false); // حالة لتخزين حالة التحميل
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [message]);
+
   const RecetPassword = async (e) => {
     e.preventDefault();
+    setLoading(true); // تفعيل التحميل
+
     try {
       // إرسال البريد الإلكتروني إلى الخادم
       const response = await fetch(`${API_BASE_URL}Users/ForgotPassword`, {
@@ -37,6 +41,8 @@ export default function ForgotPassword() {
     } catch (error) {
       setMessage(error.message);
       setMessageType("error");
+    } finally {
+      setLoading(false); // إيقاف التحميل
     }
   };
 
@@ -50,7 +56,7 @@ export default function ForgotPassword() {
         />
       </Helmet>
       <h2>استعادة كلمة المرور</h2>
-      {message && <p className={`message ${messageType}`}>{message}</p>}{" "}
+      {message && <p className={`${messageType}`}>{message}</p>}{" "}
       {/* عرض الرسائل */}
       <form onSubmit={RecetPassword}>
         <div>
@@ -65,8 +71,17 @@ export default function ForgotPassword() {
           />
         </div>
 
-        <button type="submit">إرسال رابط إعادة تعيين كلمة المرور</button>
+        <button type="submit" disabled={loading}>
+          {loading ? (
+            <div className="spinner"></div> // دائرة التحميل
+          ) : (
+            "إرسال رابط إعادة تعيين كلمة المرور"
+          )}
+        </button>
       </form>
+      {loading && (
+        <p className="loading-message">جاري المعالجة، يرجى الانتظار...</p>
+      )}
     </div>
   );
 }
