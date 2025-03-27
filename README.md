@@ -1,4 +1,4 @@
-# {Souq-Elbalad E-Commerce Platform}(https://souq-elbald.netlify.app/)
+# [Souq-Elbalad E-Commerce Platform](https://souq-elbald.netlify.app/)
 
 
 Souq-Elbalad is a **single-store e-commerce platform** designed for store owners to manage their products, control inventory, process customer orders, and configure shipping rates based on locations. The platform also allows the creation of manager accounts with specific access permissions, including full product control, but with restricted access to customer data and site settings.
