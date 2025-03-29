@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,7 +73,7 @@ namespace StoreBusinessLayer.Products
             }
         }
 
-        public async Task<List<ProductsDtos.GetProductsReq>> GetDiscountsProducts()
+        public async Task<List<ProductsDtos.GetProductsReq>> GetDiscountsProducts(short PageNumber,byte Limit)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace StoreBusinessLayer.Products
                     .Where(p => p.DiscountPercentage > 0)
                     .Include(p => p.ProductDetails)
                     .OrderBy(x => Guid.NewGuid())
-                    .Take(10)
+                    .Paginate(PageNumber, Limit)
                     .ToListAsync();
 
                 var result = discountProducts.Select(Product => new ProductsDtos.GetProductsReq
@@ -103,7 +103,7 @@ namespace StoreBusinessLayer.Products
                 throw;
             }
         }
-        public async Task<List<ProductsDtos.GetProductsReq>> GetProductsWhereInClothesCategory()
+        public async Task<List<ProductsDtos.GetProductsReq>> GetProductsWhereInClothesCategory(short PageNumber, byte Limit)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace StoreBusinessLayer.Products
                     .Where(p => p.CategoryId ==1 )//1 is the id of the clothes category
                     .Include(p => p.ProductDetails)
                     .OrderBy(x => Guid.NewGuid())
-                    .Take(10)
+                    .Paginate(PageNumber, Limit)
                     .ToListAsync();
 
                 var result = discountProducts.Select(Product => new ProductsDtos.GetProductsReq
@@ -289,7 +289,11 @@ namespace StoreBusinessLayer.Products
                 .Select(product => product.ColorId).Distinct()
                 .ToListAsync();
 
-            // تنفيذ الاستدعاءات بشكل متسلسل لتجنب مشاكل التزامن مع DbContext
+            if (colorIds.Count == 1)
+            {
+                string ColorName = await _Sizes.GetSizeNameByIdAsync(colorIds[0]);
+                return new List<string>() { ColorName };
+            }
             var colorNames = new List<string>();
             foreach (var id in colorIds)
             {
@@ -304,13 +308,16 @@ namespace StoreBusinessLayer.Products
             {
                 throw new ArgumentException("ProductId must be greater than 0", nameof(productId));
             }
-
             var sizesId = await _Context.ProductDetails
                 .AsNoTracking()
                 .Where(product => product.ProductId == productId)
                 .Select(product => product.SizeId).Distinct()
                 .ToListAsync();
-
+            if(sizesId.Count==1)
+            {
+               string SizeName= await _Sizes.GetSizeNameByIdAsync(sizesId[0]);
+                return  new List<string>() { SizeName };
+            }
             var sizesNames = new List<string>();
             foreach (var id in sizesId)
             {
