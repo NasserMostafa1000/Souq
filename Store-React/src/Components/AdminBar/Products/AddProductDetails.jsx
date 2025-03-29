@@ -288,7 +288,6 @@ export default function AddProductDetails() {
             style={{
               color: "white",
               cursor: "pointer",
-              color: "white",
               textDecoration: "underline",
             }}
             htmlFor="usePreviousImage"
