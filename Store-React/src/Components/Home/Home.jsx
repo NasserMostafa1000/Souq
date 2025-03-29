@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "./Nav";
 import ProductItem from "../Products/ProductItem.jsx";
 import API_BASE_URL from "../Constant.js";
@@ -9,87 +9,110 @@ import "../../Styles/Home.css";
 import { getRoleFromToken } from "../utils.js";
 import ContactUs from "./ContactUs.jsx";
 import WebSiteLogo from "../../../public/WebsiteLogo/WebsiteLogo.jsx";
-
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [clothesProducts, setClothesProducts] = useState([]);
+  const [ProductsPage, setProductsPage] = useState(1);
+  const [ClothesPage, setClothesPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [hasMoreClothes, setHasMoreClothes] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingClothes, setLoadingClothes] = useState(false);
-  const [clothesLoaded, setClothesLoaded] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    // جلب المنتجات مع خصومات
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(
-          `${API_BASE_URL}Product/GetDiscountProducts`
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching discount products:", error);
-      } finally {
-        setLoading(false);
+  const productsRef = useRef(null);
+  const clothesRef = useRef(null);
+
+  const fetchProducts = async () => {
+    if (!hasMore) return;
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}Product/GetDiscountProducts?page=${ProductsPage}&limit=5`
+      );
+      if (!response.ok) throw new Error("Network error");
+
+      const data = await response.json();
+      if (data.length === 0) setHasMore(false);
+      else {
+        setProducts((prev) => [...prev, ...data]);
+        setProductsPage((prev) => prev + 1);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching discount products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const fetchClothesProducts = async () => {
+    if (!hasMoreClothes || loadingClothes) return;
+    setLoadingClothes(true);
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}Product/GetProductsWhereInClothesCategory?page=${ClothesPage}&limit=5`
+      );
+      if (!response.ok) throw new Error("Network error");
+
+      const data = await response.json();
+      if (data.length === 0) setHasMoreClothes(false);
+      else {
+        setClothesProducts((prev) => [...prev, ...data]);
+        setClothesPage((prev) => prev + 1);
+      }
+    } catch (error) {
+      console.error("Error fetching clothes products:", error);
+    } finally {
+      setLoadingClothes(false);
+    }
+  };
+
+  const handleScroll = useCallback((ref, fetchMore) => {
+    if (!ref.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+    const isRtl = getComputedStyle(ref.current).direction === "ltr";
+
+    // Handle RTL scroll detection
+    const isAtEnd = isRtl
+      ? scrollLeft <= 50
+      : scrollLeft + clientWidth >= scrollWidth - 10;
+
+    if (isAtEnd) fetchMore();
+  }, []);
+  useEffect(() => {
     fetchProducts();
+    fetchClothesProducts();
+  }, []);
+
+  const handleHorizontalScroll = useCallback((ref, fetchMore) => {
+    if (!ref.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = ref.current;
+    if (scrollLeft + clientWidth >= scrollWidth - 10) {
+      fetchMore();
+    }
   }, []);
 
   useEffect(() => {
-    if (location.state && location.state.scrollToBottom) {
-      location.state = null;
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
-    }
-  }, [location]);
+    const productsDiv = productsRef.current;
+    const clothesDiv = clothesRef.current;
 
-  // دالة جلب منتجات الملابس
-  const fetchClothesProducts = () => {
-    // التحقق من أن الطلب لم يتم بالفعل
-    if (clothesLoaded) return;
-    setClothesLoaded(true);
-    setLoadingClothes(true);
-    fetch(`${API_BASE_URL}Product/GetProductsWhereInClothesCategory`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setClothesProducts(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching clothes products:", error);
-      })
-      .finally(() => {
-        setLoadingClothes(false);
-      });
-  };
+    const productsScrollHandler = () =>
+      handleScroll(productsRef, fetchProducts);
+    const clothesScrollHandler = () =>
+      handleScroll(clothesRef, fetchClothesProducts);
 
-  // استخدام onScroll على النافذة للتأكد من وصول المستخدم إلى نهاية الصفحة
-  useEffect(() => {
-    const handleScroll = () => {
-      // يمكن تعديل القيمة حسب الحاجة
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 100
-      ) {
-        fetchClothesProducts();
-      }
+    if (productsDiv)
+      productsDiv.addEventListener("scroll", productsScrollHandler);
+    if (clothesDiv) clothesDiv.addEventListener("scroll", clothesScrollHandler);
+
+    return () => {
+      if (productsDiv)
+        productsDiv.removeEventListener("scroll", productsScrollHandler);
+      if (clothesDiv)
+        clothesDiv.removeEventListener("scroll", clothesScrollHandler);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [clothesLoaded]);
+  }, [handleScroll, fetchProducts, fetchClothesProducts]);
 
   function handleProductClick(product) {
     navigate(`/productDetails/${product.productId}`, {
@@ -105,7 +128,7 @@ export default function Home() {
           backgroundColor: "grey",
           height: "100vh",
           display: "flex",
-          flexDirection: "column", // ترتيب عمودي
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
         }}
@@ -115,7 +138,7 @@ export default function Home() {
             fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
             fontSize: "36px",
             color: "black",
-            margin: "0 0 20px", // هامش سفلي للفصل بين النص واللوجو
+            margin: "0 0 20px",
           }}
         >
           سوق البلد يرحب بكم
@@ -144,8 +167,8 @@ export default function Home() {
       <h1 className="discount-title">
         <span>%60</span> تسوق منتجات مع خصومات تصل إلى
       </h1>
-      {/* قائمة المنتجات ذات الخصومات */}
-      <div className="products-container">
+
+      <div className="products-container" ref={productsRef}>
         {products.map((product) => (
           <div
             onClick={() => handleProductClick(product)}
@@ -159,11 +182,10 @@ export default function Home() {
         ))}
       </div>
 
-      {/* يمكن عرض الأصناف هنا إن رغبت */}
       <CategoryItems />
       <h1 className="discount-title">تسوق احدث موديلات الملابس</h1>
-      {/* عرض منتجات الملابس عند جلبها */}
-      <div className="products-container">
+
+      <div className="products-container" ref={clothesRef}>
         {loadingClothes ? (
           <p style={{ textAlign: "center" }}>جارٍ تحميل منتجات الملابس...</p>
         ) : clothesProducts.length > 0 ? (
