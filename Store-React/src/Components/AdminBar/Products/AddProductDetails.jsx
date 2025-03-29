@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import API_BASE_URL from "../../Constant";
+import API_BASE_URL, { ServerPath } from "../../Constant";
 import { colors, sizes } from "../../utils"; // تأكد من أن هذه الاستيرادات صحيحة
 
 export default function AddProductDetails() {
@@ -23,6 +23,7 @@ export default function AddProductDetails() {
   const [messageType, setMessageType] = useState(""); // لتحديد نوع الرسالة (ناجحة أو فاشلة)
   const [detailsAdded, setDetailsAdded] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // حالة تحميل جديدة
+  const [usePreviousImage, setUsePreviousImage] = useState(false); // تحديد إذا كان سيتم استخدام الصورة السابقة
 
   // ref لحقل رفع الصورة لإعادة تعيينه
   const fileInputRef = useRef(null);
@@ -115,7 +116,6 @@ export default function AddProductDetails() {
       setColorId("");
       setSizeId("");
       setQuantity(1);
-      setProductImage("");
       setSelectedFile(null);
       if (fileInputRef.current) {
         fileInputRef.current.value = null;
@@ -134,7 +134,6 @@ export default function AddProductDetails() {
     setMessage("");
     setMessageType("");
     setSelectedFile(null);
-    setProductImage("");
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
     }
@@ -187,9 +186,9 @@ export default function AddProductDetails() {
         <div style={{ marginBottom: "1rem" }}>
           <label
             htmlFor="colorId"
-            style={{ display: "block", marginBottom: "5px" }}
+            style={{ display: "block", marginBottom: "5px", color: "white" }}
           >
-            اختر اللون (اجباري):
+            اختر اللون (اجباري)
           </label>
           <select
             id="colorId"
@@ -211,9 +210,9 @@ export default function AddProductDetails() {
         <div style={{ marginBottom: "1rem" }}>
           <label
             htmlFor="sizeId"
-            style={{ display: "block", marginBottom: "5px" }}
+            style={{ display: "block", marginBottom: "5px", color: "white" }}
           >
-            اختر المقاس (اختياري):
+            اختر المقاس (اختياري)
           </label>
           <select
             id="sizeId"
@@ -234,9 +233,9 @@ export default function AddProductDetails() {
         <div style={{ marginBottom: "1rem" }}>
           <label
             htmlFor="quantity"
-            style={{ display: "block", marginBottom: "5px" }}
+            style={{ display: "block", marginBottom: "5px", color: "white" }}
           >
-            الكمية:
+            أدخل الكميه (اجباري)
           </label>
           <input
             type="number"
@@ -253,7 +252,7 @@ export default function AddProductDetails() {
         <div style={{ marginBottom: "1rem" }}>
           <label
             htmlFor="productImage"
-            style={{ display: "block", marginBottom: "5px" }}
+            style={{ display: "block", marginBottom: "5px", color: "white" }}
           >
             رفع صورة المنتج:
           </label>
@@ -265,16 +264,53 @@ export default function AddProductDetails() {
             onChange={handleFileChange}
             ref={fileInputRef}
             style={{ width: "100%", padding: "8px" }}
-            required
+          />
+        </div>
+        {productImage && (
+          <div>
+            <img
+              src={ServerPath + productImage}
+              alt="معاينة الصورة"
+              style={{ width: "100px", height: "100px" }}
+            />
+          </div>
+        )}
+
+        <div
+          style={{
+            marginBottom: "1.5rem",
+            display: "flex",
+            alignItems: "unset",
+            gap: "8px",
+          }}
+        >
+          <label
+            style={{
+              color: "white",
+              cursor: "pointer",
+              color: "white",
+              textDecoration: "underline",
+            }}
+            htmlFor="usePreviousImage"
+          >
+            استخدم الصورة السابقة؟
+          </label>
+          <input
+            type="checkbox"
+            id="usePreviousImage"
+            checked={usePreviousImage}
+            onChange={(e) => setUsePreviousImage(e.target.checked)}
           />
         </div>
 
-        <button
-          type="submit"
-          style={{ padding: "10px 20px", fontSize: "16px" }}
-        >
-          إضافة تفاصيل المنتج
-        </button>
+        {!detailsAdded && (
+          <button
+            type="submit"
+            style={{ padding: "10px 20px", fontSize: "16px" }}
+          >
+            إضافة تفاصيل المنتج
+          </button>
+        )}
       </form>
 
       {detailsAdded && (
