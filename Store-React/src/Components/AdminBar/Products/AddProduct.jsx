@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import API_BASE_URL from "../../Constant"; // تأكد من ضبط المسار حسب مشروعك
-import { useLocation, useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../Constant";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
-  // حالات الحقول
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [discountPercentage, setDiscountPercentage] = useState("");
@@ -11,10 +10,12 @@ export default function AddProduct() {
   const [moreDetails, setMoreDetails] = useState("");
   const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [message]);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     fetch(`${API_BASE_URL}Product/GetCategoriesNames`, {
@@ -29,20 +30,18 @@ export default function AddProduct() {
         }
         return res.json();
       })
-      .then((data) => {
-        setCategories(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching categories:", error);
-      });
+      .then((data) => setCategories(data))
+      .catch((error) => console.error("Error fetching categories:", error));
   }, []);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // إنشاء كائن المنتج وفقًا للبيانات المطلوبة
+    setLoading(true); // تشغيل التحميل
+
     const newProduct = {
-      productId: 0, // قيمة افتراضية، سيتم تحديدها في الخادم
+      productId: 0,
       productName,
       productPrice: Number(productPrice),
       discountPercentage: Number(discountPercentage),
@@ -66,30 +65,24 @@ export default function AddProduct() {
       }
 
       const data = await response.json();
-      // نفترض أن الـ API يعيد كائن يحتوي على productId الخاص بالمنتج المضاف
       setMessage(`تمت إضافة المنتج بنجاح. رقم المنتج: ${data.productId}`);
-      navigate("/admins/AddProductDetails", {
-        state: { productId: data.id },
-      });
+      navigate("/admins/AddProductDetails", { state: { productId: data.id } });
     } catch (error) {
       setMessage(`خطأ: ${error.message}`);
+    } finally {
+      setLoading(false); // إيقاف التحميل
     }
   };
+
   const handleDiscountChange = (e) => {
     let value = parseFloat(e.target.value);
-    // إذا كانت القيمة غير رقمية، اتركها فارغة
     if (isNaN(value)) {
       setDiscountPercentage("");
       return;
     }
-    // ضمان أن القيمة لا تزيد عن 100 ولا تقل عن 0
-    if (value > 100) {
-      value = 100;
-    } else if (value < 0) {
-      value = 0;
-    }
-    setDiscountPercentage(value);
+    setDiscountPercentage(Math.max(0, Math.min(100, value)));
   };
+
   return (
     <div
       className="add-product-container"
@@ -99,6 +92,14 @@ export default function AddProduct() {
         أضف منتج جديد
       </h2>
       {message && <p style={{ textAlign: "center" }}>{message}</p>}
+
+      {loading && (
+        <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+          <div className="spinner"></div>
+          <p>جاري الإضافة...</p>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>
           <label
@@ -114,6 +115,7 @@ export default function AddProduct() {
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
             required
+            disabled={loading}
             style={{ width: "100%", padding: "8px" }}
             placeholder="أدخل اسم المنتج"
           />
@@ -133,6 +135,7 @@ export default function AddProduct() {
             value={productPrice}
             onChange={(e) => setProductPrice(e.target.value)}
             required
+            disabled={loading}
             style={{ width: "100%", padding: "8px" }}
             placeholder="أدخل سعر المنتج"
           />
@@ -143,7 +146,7 @@ export default function AddProduct() {
             htmlFor="discountPercentage"
             style={{ display: "block", marginBottom: "5px" }}
           >
-            نسبة الخصم المئويه:
+            نسبة الخصم المئوية:
           </label>
           <input
             type="number"
@@ -155,6 +158,7 @@ export default function AddProduct() {
             value={discountPercentage}
             onChange={handleDiscountChange}
             required
+            disabled={loading}
             style={{ width: "100%", padding: "8px" }}
             placeholder="أدخل نسبة الخصم (0-100)"
           />
@@ -173,6 +177,7 @@ export default function AddProduct() {
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
             required
+            disabled={loading}
             style={{ width: "100%", padding: "8px" }}
           >
             <option value="">اختر تصنيف</option>
@@ -198,16 +203,37 @@ export default function AddProduct() {
             onChange={(e) => setMoreDetails(e.target.value)}
             style={{ width: "100%", padding: "8px", minHeight: "100px" }}
             placeholder="أدخل تفاصيل إضافية للمنتج"
+            disabled={loading}
           ></textarea>
         </div>
 
         <button
           type="submit"
+          disabled={loading}
           style={{ padding: "10px 20px", fontSize: "16px" }}
         >
-          إضافة المنتج
+          {loading ? "جاري الإضافة..." : "إضافة المنتج"}
         </button>
       </form>
+
+      <style>
+        {`
+          .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #333;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: auto;
+          }
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}
+      </style>
     </div>
   );
 }
