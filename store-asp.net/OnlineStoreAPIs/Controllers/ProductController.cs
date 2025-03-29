@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +20,12 @@ namespace OnlineStoreAPIs.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<ProductsDtos.GetProductsReq>>> GetTodayDiscountProducts()
+        public async Task<ActionResult<IEnumerable<ProductsDtos.GetProductsReq>>> GetTodayDiscountProducts(short Page,byte Limit)
         {
 
             try
             {
-                var result = await _ProductsBl.GetDiscountsProducts();
+                var result = await _ProductsBl.GetDiscountsProducts(Page, Limit);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -38,12 +38,12 @@ namespace OnlineStoreAPIs.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<ProductsDtos.GetProductsReq>>> GetProductWhereInClothesCategory()
+        public async Task<ActionResult<IEnumerable<ProductsDtos.GetProductsReq>>> GetProductWhereInClothesCategory(short Page, byte Limit)
         {
 
             try
             {
-                var result = await _ProductsBl.GetProductsWhereInClothesCategory();
+                var result = await _ProductsBl.GetProductsWhereInClothesCategory(Page, Limit);
                 return Ok(result);
             }
             catch (Exception ex)
